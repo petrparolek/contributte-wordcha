@@ -19,9 +19,9 @@ composer require contributte/wordcha
 
 Register extension
 
-```yaml
+```neon
 extensions:
-    wordcha: Contributte\Wordcha\DI\WordchaExtension
+	wordcha: Contributte\Wordcha\DI\WordchaExtension
 ```
 
 ## Configuration
@@ -30,19 +30,19 @@ At the beginning you should pick the right datasource.
 
 ### Numeric datasource
 
-```yaml
+```neon
 wordcha:
-    datasource: numeric
+	datasource: numeric
 ```
 
 ### Question datasource
 
-```yaml
+```neon
 wordcha:
-    datasource: questions
-    questions: 
-        "Question a?": "a"
-        "Question b?": "b"
+	datasource: questions
+	questions:
+		"Question a?": "a"
+		"Question b?": "b"
 ```
 
 ## Form
@@ -52,25 +52,25 @@ use Nette\Application\UI\Form;
 
 protected function createComponentForm()
 {
-    $form = new Form();
+	$form = new Form();
 
-    $form->addWordcha('wordcha')
-        ->getQuestion()
-        ->setRequired('Please answer antispam question');
+	$form->addWordcha('wordcha')
+		->getQuestion()
+		->setRequired('Please answer antispam question');
 
-    $form->addSubmit('send');
+	$form->addSubmit('send');
 
-    $form->onValidate[] = function (Form $form) {
-        if ($form['wordcha']->verify() !== TRUE) {
-            $form->addError('Are you robot?');
-        }
-    };
+	$form->onValidate[] = function (Form $form) {
+		if ($form['wordcha']->verify() !== TRUE) {
+			$form->addError('Are you robot?');
+		}
+	};
 
-    $form->onSuccess[] = function (Form $form) {
-        dump($form['wordcha']);
-    };
+	$form->onSuccess[] = function (Form $form) {
+		dump($form['wordcha']);
+	};
 
-    return $form;
+	return $form;
 }
 ```
 
